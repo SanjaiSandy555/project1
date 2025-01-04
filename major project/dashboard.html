@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <style>
+        body {
+            background: #f8f9fa;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar {
+            background: #007bff;
+            color: #fff;
+            padding: 1rem;
+        }
+
+        .navbar h1 {
+            font-size: 1.5rem;
+            color: #fff;
+            margin: 0;
+        }
+
+        .container {
+            margin-top: 2rem;
+        }
+
+        .card {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="container d-flex justify-content-between align-items-center">
+            <h1>Amazon Price Tracker</h1>
+            <a href="login.html" class="btn btn-light">Logout</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2 class="text-center mb-4">Tracked Products</h2>
+
+        <!-- Add Product Form -->
+        <form id="addProductForm" class="mb-4">
+            <div class="row">
+                <div class="col-md-8">
+                    <input type="text" id="productUrl" class="form-control" placeholder="Enter Amazon product URL" required>
+                </div>
+                <div class="col-md-4">
+                    <button type="submit" class="btn btn-primary w-100">Add Product</button>
+                </div>
+            </div>
+        </form>
+        <div id="productList" class="row g-4">
+            <!-- Dynamically generated product cards will appear here -->
+        </div>
+    </div>
+
+    <script>
+        // Sample data to populate dashboard
+        let products = [
+            {
+                id: 1,
+                name: "Sample Product 1",
+                url: "https://www.amazon.com/dp/sample-product-1",
+                currentPrice: "$150",
+                priceThreshold: "$120"
+            },
+            {
+                id: 2,
+                name: "Sample Product 2",
+                url: "https://www.amazon.com/dp/sample-product-2",
+                currentPrice: "$200",
+                priceThreshold: "$180"
+            }
+        ];
+
+        document.getElementById("addProductForm").addEventListener("submit", function (e) {
+        e.preventDefault();
+            const productUrl = document.getElementById("productUrl").value;
+
+            // Add new product (placeholder values for now)
+            products.push({
+                id: products.length + 1,
+                name: `New Product ${products.length + 1}`,
+                url: productUrl,
+                currentPrice: "Fetching...",
+                priceThreshold: "Set Threshold"
+            });
+
+            renderProductList();
+            document.getElementById("addProductForm").reset(); // Clear the form
+        });
+
+        // Function to remove a product
+        function removeProduct(index) {
+            products.splice(index, 1); // Remove product by index
+            renderProductList();
+        }
+
+        // Initial render
+        renderProductList();
+    </script>
+
+</body>
+</html>
